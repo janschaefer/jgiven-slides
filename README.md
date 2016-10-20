@@ -1,2 +1,7 @@
-# Slides of my presentation at Karlsruher Entwicklertag 2016
-https://janschaefer.github.io/etk16-slides
+# Slides of presentations I gave for JGiven (incomplete)
+
+## 2016
+
+### Software Architecture Meetup Munich
+
+https://janschaefer.github.io/jgiven-slides/swamuc2016/
