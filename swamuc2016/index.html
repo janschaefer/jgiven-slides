@@ -1,0 +1,1288 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>JGiven</title>
+
+		<meta name="description" content="Behavior-Driven Development in Plain Java">
+		<meta name="author" content="Jan Schäfer">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/github-gist.css">
+
+		<link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+		<link rel="stylesheet" href="css/fonts.css">
+		<link rel="stylesheet" href="css/custom.css">
+
+        <link rel="stylesheet" href="css/gh-fork-ribbon.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+
+                  <section  class="title">
+                    <h1>Take your Automated Tests to the Next Level</h1>
+                      <h2 style="margin-top:60px; margin-bottom: 40px; color: #444">Dr. Jan Schäfer</h2>
+                      <a href="http://tngtech.com"><img  style="margin-bottom:20px; margin-top:0px; height:40px;" src="img/tng.svg" /></a>
+                      <h3>19. Oktober, 2016</h3>
+                      <h4>Software Architektur München</h4>
+<!--                      <img style="background-color:  #2d5352; padding: 10px;" width="150" src="img/ETka-Logo.png" /> -->
+                  </section>
+                  <aside class="notes">
+
+                  </aside>
+				</section>
+
+                <section>
+<!--
+                  <section style="position:relative">
+                    <p>
+                    <quote>
+                      Facebook releases <b>twice a day</b>
+                    </quote>
+
+                    <div style="font-size: 50%; margin-top: 300px; margin-left: 200px; position: fixed; color: gray">Source: <a href="https://www.infoq.com/presentations/Facebook-Release-Process">https://www.infoq.com/presentations/Facebook-Release-Process</a></div>
+                  </section>
+-->
+                  <section>
+                    <quote>
+                      Amazon deploys to production every <b>second</b>
+                    </quote>
+
+                    <div style="font-size: 50%; margin-top: 300px; margin-left: 80px; position: fixed; color: gray">Source: <a href="http://www.allthingsdistributed.com/2014/11/apollo-amazon-deployment-engine.html">http://www.allthingsdistributed.com/2014/11/apollo-amazon-deployment-engine.html</a></div>
+
+                  </section>
+
+                  <section data-transition="fade-out">
+                    <h2>Continuous Delivery</h2>
+                    <img style="margin-top: 100px; margin-bottom: 100px" src="img/pipeline.svg" />
+                  </section>
+
+                  <section data-transition="fade-in fast">
+                    <h2>Continuous Delivery</h2>
+                    <img style="margin-top: 100px; margin-bottom: 100px" src="img/pipeline_red.svg" />
+                  </section>
+
+<!--
+                  <section>
+                    <img height="600" src="img/pyramid.png" />
+                  </section>
+-->
+<!--
+                  <section style="position:relative; min-height:100%">
+                    <img height="600" src="img/icecream.png" style="position:relative; top:-100px;"/>
+                    <i class="fa fa-times fragment" style="color:red; font-size:500px; position:absolute; left:0; top:0; right:0; z-index: 10" aria-hidden="true"></i>
+                  </section>
+
+-->
+                  <section>
+                    <h2>&gt;50% of the code is test code</h2>
+                    <img src="img/testcode_colored_klein.jpeg" >
+<!--
+                    <h3>SQLLite: 99,87% test code*</h3>
+                    https://www.sqlite.org/testing.html
+-->
+                  </section>
+
+                  <section>
+                    <h2>Test Code has no Business Value</h2>
+                  </section>
+
+                  <section>
+                    <h2>Costs of Automated Tests</h2>
+                    <quote>
+                      "... automated acceptance tests can be costly to maintain. Done badly, they can inflict a <b>significant cost</b> on your delivery team."
+                    </quote>
+                    <img style="float: right; padding-left: 20px" height="200" src="img/continuousdelivery.png" />
+                    <h3 style="text-align:right">Jez Humble and David Farley</h3>
+                  </section>
+
+                  <section>
+                    <a target="_blank" href="http://localhost:9967/petclinic/">
+                      <img src="img/petclinic.png" />
+                    </a>
+                  </section>
+                  <section>
+                    <h2>Typical Test</h2>
+                    <aside class="notes">
+                      Kann nicht zur Kommunikation mit Domain-Experten genutzt werden<br />
+                      Carola und Henning: Minimal viable product: Muss als Testfall formuliert werden können
+                    </aside>
+
+                    <pre><code data-trim style="font-size:16px; line-height:1.2">
+@Test
+public void shouldInsertPetIntoDatabaseAndGenerateId() {
+    Owner owner6 = this.clinicService.findOwnerById(6);
+    int found = owner6.getPets().size();
+
+    Pet pet = new Pet();
+    pet.setName("bowser");
+    Collection&lt;PetType&gt; types = this.clinicService.findPetTypes();
+    pet.setType(EntityUtils.getById(types, PetType.class, 2));
+    pet.setBirthDate(new DateTime());
+    owner6.addPet(pet);
+    assertThat(owner6.getPets().size()).isEqualTo(found + 1);
+
+    this.clinicService.savePet(pet);
+    this.clinicService.saveOwner(owner6);
+
+    owner6 = this.clinicService.findOwnerById(6);
+    assertThat(owner6.getPets().size()).isEqualTo(found + 1);
+    // checks that id has been generated
+    assertThat(pet.getId()).isNotNull();
+}
+  </code></pre>
+<small>Example from <a href="https://github.com/spring-projects/spring-petclinic">github.com/spring-projects/spring-petclinic</a></small>
+
+<!--                    <img src="img/tdd.svg"> -->
+                  </section>
+
+                  <section>
+                    <h2>Issues with typical automated tests</h2>
+          <ul class="fa-ul bad">
+           <li class="fragment">Many technical and irrelevant details</li>
+           <li class="fragment">Point of the test often hard to grasp</li>
+           <li class="fragment">Code duplication</li>
+           <li class="fragment">Can only be read by developers</li>
+           <li class="fragment">Cannot be used as documentation</li>
+          </ul>
+
+                  </section>
+
+
+<!--
+                 <section>
+                    <h2>Reading vs Writing of Code</h2>
+                    <quote>
+                      “The ratio of time spent reading (code) versus writing is well over 10 to 1 … (therefore) making it easy to read makes it easier to write.”
+                    </quote>
+                    <p>
+                    <img style="float: right; padding-left: 20px" height="200" src="img/cleancode.png" />
+                    <h3 style="text-align:right">Uncle Bob</h3>
+                  </section>
+-->
+                </section>
+                  <section>
+
+                  <section>
+                    <h1>Behavior-Driven Development</h1>
+                  </section>
+
+        <section>
+          <h2>
+          <img class="plain" src="img/cucumber.png" />
+          </h2>
+        </section>
+
+        <section>
+          <h2>Feature Files (Gherkin)</h2>
+findowners.feature
+          <pre><code class="gherkin" data-trim>
+Feature: Finding Owners
+
+  Scenario: Owners can be found by last name
+
+    Given an owner with last name "John"
+     When searching for "John"
+     Then exactly the given owner is found
+        </code></pre>
+        </section>
+        <section>
+          <h2>Step Implementation (Java)</h2>
+          <pre style="font-size:50%"><code data-trim>
+public class CustomerStepdefs {
+    @Given("an owner with last name (.*)")
+    public void anOwnerWithLastName(String lastName) { ... }
+
+    @When("searching for (.*)")
+    public void searchingFor(String lastName) { ... }
+
+    @Then("exactly the given owner is found")
+    public void exactlyTheGivenOwnerIsFound() { ... }
+}
+        </code></pre>
+        </section>
+<!--
+
+                  <section>
+                    <h2>Behavior-Driven Development</h2>
+                      <ul>
+                        <li>Tests are written as <b>Scenarios</b></li>
+                        <li>Scenarios are written in a common <b>domain language</b> understandable by business owners</li>
+                        <li>Typically in the Given-When-Then format</li>
+                      </ul>
+                    <aside class="notes">
+                      Working software over comprehensive documentation
+                    </aside>
+
+                  </section>
+-->
+<!--
+                  <section>
+                    <h2>Example</h2>
+                    <pre><code class="gherkin" data-trim>
+  Scenario: Pets can be assigned to pet owners
+
+   Given a pet owner
+     And a dog
+    When assigning the pet to the pet owner
+    Then the pet owner owns an additional pet
+ </code></pre>
+                  </section>
+-->
+
+                  <section>
+                    <h2>Cost of Tools like Cucumber</h2>
+                    <quote>
+                      "... while modern tools [like Cucumber] reduce the overhead of writing executable acceptance criteria and keeping them synchronized with the acceptance test implementation, there is inevitably some <b>overhead</b>."
+                    </quote>
+                    <img style="float: right; padding-left: 20px" height="200" src="img/continuousdelivery.png" />
+                    <h3 style="text-align:right">Jez Humble and David Farley</h3>
+                  </section>
+
+
+
+<!--
+                  <section>
+                    <h2>TDD</h2>
+                    <h3>Bauen wir die Anwendung richtig?</h3>
+                    <p><h3>&nbsp;</h3></p>
+                    <h2>BDD</h2>
+                    <h3>Bauen wir die richtige Anwendung?</h3>
+-->
+<!--
+                  <section>
+                    <h2>Example</h2>
+                    <pre><code class="gherkin" data-trim>
+Scenario: new pets can be assigned to existing owners
+
+  Given an existing pet owner
+    And a new pet
+   When the pet is assigned to the owner
+   Then the pet exists in the system
+    And the pet belongs to the owner
+ </code></pre>
+
+                  </section>
+                  <section data-transition="fade-in fade-out">
+                    <h2>Behavior-Driven Development</h2>
+                    <img src="img/bddraw.svg">
+                  </section>
+                  <section data-transition="fade-in slide-out">
+                    <h2>Behavior-Driven Development</h2>
+                    <img src="img/bddkommunikation.svg">
+                  </section>
+                </section>
+</section>
+                <section>
+
+-->
+<!--
+                  <section>
+                    <h1>BDD in Java</h1>
+                  </section>
+
+-->
+<!--
+
+
+        <section>
+          <h2>Feature-Dateien (Gherkin)</h2>
+ordering.feature
+          <pre><code class="gherkin" data-trim>
+Feature: Ordering
+
+  Scenario: Customers can order books
+
+    Given a customer
+      And a book
+      And 3 items of the book are on stock
+     When the customer orders the book
+     Then a corresponding order for the customer exists
+        </code></pre>
+        </section>
+        <section>
+          <h2>Schritt-Implementierung (Java)</h2>
+          <pre style="font-size:50%"><code data-trim>
+public class CustomerStepdefs {
+    @Given("a customer")
+    public void aCustomer() { ... }
+
+    @Given("a book")
+    public void aBook() { ... }
+
+    @Given("(\\d+) items of the book are on stock")
+    public void nItemsOfTheBookAreOnStock(int nItems) { ... }
+
+    @When("the customer orders the book")
+    public void theCustomerOrdersTheBook() { ... }
+
+    @Then("a corresponding order for the customer exists")
+    public void aCorrespondingOrderForTheCustomerExists() { ... }
+}
+        </code></pre>
+        </section>
+
+-->
+
+
+<!--
+        <section>
+          <blockquote cite="https://en.wikiquote.org/wiki/Jamie_Zawinski">
+Some people, when confronted with a problem, think "I know, I'll use regular expressions." Now they have two problems.
+          </blockquote>
+<div style="text-align:right"><a href="https://en.wikiquote.org/wiki/Jamie_Zawinski">Jamie Zawinski</a></div>
+        </section>
+-->
+<!--
+        <section>
+          <h2>Problems</h2>
+          <ul class="fa-ul bad">
+            <li>Feature files and code must be kept in sync</li>
+            <li>Programming language features cannot be used in feature files</li>
+            <li>Limited IDE support (e.g. refactoring)</li>
+          </ul>
+          <h3><i class="fa fa-arrow-circle-right"></i> High maintenance cost</h3>
+        </section>
+        <section>
+          <h2>Practical Experience</h2>
+          <ul class="fa-ul bad">
+            <li>Low acceptance by developers due to additional effort</li>
+            <li>Non-Developers typically do not write feature files</li>
+            <li>Developers have to maintain the feature files</li>
+          </ul>
+          <aside class="notes">
+            Carola und Henning. Werkzeuge können auch Folterwerkzeuge sein.
+          </aside>
+        </section>
+-->
+        <section>
+            <h2>BDD Frameworks for Java</h2>
+            <ul>
+              <li class="nowrap">Cucumber: Plain Text + Java</li>
+              <li class="nowrap">JBehave: Plain Text + Java</li>
+              <li>Concordion: HTML + Java</li>
+              <li>Fitness: Wiki + Java</li>
+              <li>Spock: Groovy</li>
+              <li>ScalaTest: Scala</li>
+              <li>Jnario: Xtend</li>
+              <li>Serenity (similar concepts as JGiven)</li>
+            </ul>
+        </section>
+
+        <section data-background="img/wantedposter.jpg" data-background-size="500px">
+          &nbsp;
+        </section>
+
+        <section>
+          <h2>Stack Overflow?</h2>
+        </section>
+
+        <section class="fade-in">
+          <div style="position: relative; top:0px;" class="img">
+            <img width="580px" src="img/stackoverflow.png" />
+            <div style="z-index: 100; position: absolute; left:220px; top:690px; font-size:10px !important">
+              <a href="http://stackoverflow.com/questions/16036120/behavior-driven-development-for-java-what-framework-to-use/25221414#25221414">Source: http://stackoverflow.com/questions/16036120/
+              </a>, <a href="http://stackoverflow.com/users/1371775/sody">
+              Author: http://stackoverflow.com/users/1371775/sody
+            </a>
+            </div>
+
+            <div class="fragment">
+              <img style="background-color: red; padding:10px; position:relative; top: -500px" width="1000px" src="img/stackoverflow-extracted.png" />
+              <div style="border: red solid 5px; position:relative; top: -305px; left: 180px;width: 600px;height: 50px; opacity:0.3;" />
+            </div>
+          </div>
+
+        </section>
+
+      </section>
+      <section>
+        <section>
+          <img width="600" src="img/logo.svg"/>
+        </section>
+
+        <section>
+          <h2>Goals</h2>
+          <ul class="fa-ul goal">
+            <li>Developer friendly (low maintancence overhead)</li>
+            <li>Readable tests in in Given-When-Then-Form (BDD)</li>
+            <li>Reusability of test code</li>
+            <li>Readable by domain experts</li>
+          </ul>
+        </section>
+
+<!--
+        <section>
+          <h1 style="opacity: 0.8; background: none; border:none; box-shadow:none; -webkit-text-stroke: 2px #555; font-size: 200px; color: white; text-shadow: 5px 5px 15px black">Demo</h1>
+        </section>
+-->
+        <section>
+          <h2>Scenarios in JGiven</h2>
+          <pre><code data-trim>
+import org.junit.Test;
+import com.tngtech.jgiven.junit.ScenarioTest;
+
+public class FindOwnerTest
+       extends ScenarioTest&lt;GivenOwner, WhenSearching, ThenOwner&gt; {
+
+    @Test
+    public void owners_can_be_found_by_last_name() {
+
+        given().an_owner_with_last_name("John");
+
+        when().searching_for("John");
+
+        then().exactly_the_given_owner_is_found();
+    }
+}
+      </code></pre>
+        </section>
+        <section>
+          <h2>Stage Classes</h2>
+          <pre><code data-trim>
+@JGivenStage // only needed when using Spring
+public class WhenSearching extends Stage&lt;WhenSearching&gt; {
+
+    @Autowired
+    ClinicService clinicService;
+
+    @ScenarioState
+    Owner owner;
+
+    public WhenSearching searching_for(String name) {
+       owner = this.clinicService.findOwnerByName(name);
+       return this;
+    }
+}
+          </code></pre>
+        </section>
+
+                  <section>
+                    <h2>Two Layers</h2>
+                    <quote>
+[...] organize the code into <b>two layers</b>: an <b>implementation layer</b> [...] and, a <b>declarative layer</b>
+<!--
+which builds up the objects in the implementation layer, using small <b>“sugar”</b> methods and syntax
+-->
+[...] to describe the <b>purpose</b> of each fragment. The declarative layer describes <b>what</b> the code will do, while the implementation layer describes <b>how</b> the code does it. The declarative layer is, in effect, a small <b>domain-specific language</b> embedded (in this case) in Java.
+                    </quote>
+                    <img style="float: right; padding-left: 20px" height="200" src="img/guidedbytests.png" />
+                    <h3 style="text-align:right; ">Steve Freeman and Nat Pryce</h3>
+                  </section>
+
+<!--        <section>
+          <h2>Einige Fakten</h2>
+          <ul>
+            <li>Szenarien werden in einer <b>fachspezifischen API</b> geschrieben</li>
+            <li>Benötigt nur <b>JUnit</b> oder <b>TestNG</b></li>
+            <li>Minimaler Overhead, da die meiste Information direkt aus dem Quellcode hergeleitet wird</li>
+          </ul>
+        </section>
+-->
+<!--
+        <section>
+            <h4 class="center">Ok, aber was ist mit Nicht-Entwicklern?</h4>
+        </section>
+        <section>
+        <h2>Berichte</h2>
+        <ul class="fa-ul check">
+          <li>Text</li>
+          <li>HTML5 App</li>
+          <li class="nowrap">AsciiDoc (Alpha)</li>
+        </ul>
+        </section>
+
+-->
+        <section>
+          <h2>Console Output</h2>
+          <pre style="font-size:70%"><code>
+  Owners can be found by last name
+
+    Given an owner with last name "John"
+     When searching for "John"
+     Then exactly the given owner is found
+
+</code></pre>
+
+        </section>
+        <section>
+          <h2>HTML5-App</h2>
+          <a target="_blank" href="examplereport/index.html"><img height="400px" src="img/jgivenhtml5app2.png"/></a>
+            <ul>
+              <li><a target="_blank" style="font-size: 30px" href="http://jgiven.org/jgiven-report/html5/">jgiven.org/jgiven-report/html5/</a> <a href="file:///home/jan/git/github/jgiven/jgiven-tests/build/reports/jgiven/html5/index.html" style="font-size:20px">(Local)</a></li>
+              <li><a target="_blank" style="font-size: 30px" href="http://janschaefer.github.io/xke-jgiven/">janschaefer.github.io/xke-jgiven/</a> <a href="file:///home/jan/git/github/xke-jgiven/index.html" style="font-size:20px">(Local)</a></li>
+            </ul>
+        </section>
+
+        <section>
+          <h2>Practical Experience</h2>
+          <ul style="font-size: 32px">
+            <li>3 years of experience in a large Java Enterprise project (up to 70 developers)</li>
+            <li>Over 3000 Scenarios</li>
+            <li>Readability and reusability of test code has been greatly improved</li>
+            <li>Maintanence costs of automated tests have been <b>reduced</b> (no hard numbers)</li>
+            <li>Developers and domain experts work <b>together</b> on the scenarios</li>
+            <li>Well accepted by developers</li>
+            <li>Easy to learn by new developers</li>
+          </ul>
+<!--
+            <li>1. October 2013: First usage in project</li>
+            <li>30. March 2014: Published as open-source on GitHub</li>
+            <li>8. September 2014: Article in Java aktuell magazin</li>
+            <li>10. December 2014: v0.6.0 with new HTML5 Report</li>
+            <li>10. February 2015: v0.7.0</li>
+-->
+          </ul>
+        </section>
+
+
+
+
+      </section>
+
+
+     <section>
+        <section>
+          <h1>Additional Features</h1>
+        </section>
+
+
+       <section>
+          <h2>Parameterized Steps</h2>
+          <pre class="fragment fade-in"><code>
+      given().a_customer_with_name( "John" );
+          </code></pre>
+          <div class="fragment fade-in">
+          <h4>Report</h4>
+          <pre><code>
+      Given a customer with name John
+          </code></pre>
+          </div>
+       </section>
+
+        <section>
+          <h2>Parameters within the Sentence?</h2>
+          <pre><code>
+      Given there are 5 coffees left
+          </code></pre>
+          <h4 class="fragment fade-in">$ to the rescue!</h4>
+          <pre class="fragment fade-in"><code>
+      given().there_are_$_coffees_left( 5 );
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>Parameterized Scenarios</h2>
+          <pre><code>@Test
+@DataProvider({
+   "1, 0",
+   "3, 2",
+   "5, 4"})
+public void the_stock_is_reduced_when_a_book_is_ordered( int initial,
+                                                         int left ) {
+   given().a_customer()
+       .and().a_book()
+       .with().$_items_on_stock( initial );
+
+   when().the_customer_orders_the_book();
+
+   then().there_are_$_items_left_on_stock( left );
+}</code></pre>
+<small>
+Uses the DataProviderRunner (<a href="https://github.com/TNG/junit-dataprovider">github.com/TNG/junit-dataprovider</a>).<br> Parameterized Runner and Theories of JUnit are also supported
+</small>
+        </section>
+        <section>
+          <h2>Parameterized Scenarios</h2>
+          <h3>Console Output</h3>
+<pre><code> The stock is reduced when a book is ordered
+
+   Given a customer
+     And a book
+    With &lt;initial&gt; items on stock
+    When the customer orders the book
+    Then there are &lt;left&gt; items left on stock
+
+  Cases:
+
+    | # | initial | left | Status  |
+    +---+---------+------+---------+
+    | 1 |       1 |    0 | Success |
+    | 2 |       3 |    2 | Success |
+    | 3 |       5 |    4 | Success |</code></pre>
+</section>
+
+<section>
+  <h2>Parameterized Scenarios</h2>
+
+  <h3>HTML Report</h3>
+  <a target="_blank" href="examplereport/index.html#/scenario/com.tngtech.jgiven.example.bookstore.OrderTest/the_stock_is_reduced_when_a_book_is_ordered"><img src="img/datatable.png" /></a>
+
+</section>
+
+<!--
+<section>
+   <h2>Abgeleitete Parameter</h2>
+          <pre><code>@Test
+@DataProvider({"1", "3", "5"})
+public void the_stock_is_reduced_when_a_book_is_ordered( int initial ) {
+
+   given().a_customer()
+       .and().a_book()
+       .with().$_items_on_stock( initial );
+
+   when().the_customer_orders_the_book();
+
+   then().there_are_$_items_left_on_stock( initial - 1 );
+
+}</code></pre>
+
+</section>
+
+        <section>
+   <h2>Abgeleitete Parameter</h2>
+   <h3>Textausgabe</h3>
+<code><pre>
+ Scenario: the stock is reduced when a book is ordered
+
+   Given a customer
+     And a book
+    With &lt;initial&gt; items on stock
+    When the customer orders the book
+    Then there are &lt;numberOfItems&gt; items left on stock
+
+  Cases:
+
+    | # | initial | numberOfItems | Status  |
+    +---+---------+---------------+---------+
+    | 1 |       1 |             0 | Success |
+    | 2 |       3 |             2 | Success |
+    | 3 |       5 |             4 | Success |</pre></code>
+</section>
+
+<section>
+<h2>Abgeleitete Parameter</h2>
+<h3>HTML-Bericht</h3>
+<a target="_blank" href="examplereport/index.html#/scenario/com.tngtech.jgiven.example.bookstore.OrderTest/the_stock_is_reduced_when_a_book_is_ordered_2"><img src="img/derivedparams.png" /></a>
+
+</section>
+
+<section>
+<h2>Verschiedene Schritte</h2>
+<pre><code>@Test
+@DataProvider({ "3, 2, true",
+                "0, 0, false" })
+public void the_stock_is_only_reduced_when_possible(
+         int initial, int left, boolean orderExists) {
+
+    given().a_customer()
+        .and().a_book()
+        .with().$_items_on_stock( initial );
+
+    when().the_customer_orders_the_book();
+
+    if ( orderExists ) {
+        then().a_corresponding_order_exists_for_the_customer();
+    } else {
+        then().no_corresponding_order_exists_for_the_customer();
+    }
+}</code></pre>
+</section>
+<section>
+<h2>Verschiedene Schritte</h2>
+<h3>Textausgabe</h3>
+<code><pre>Scenario: the stock is only reduced when possible
+
+  Case 1: initial = 3, left = 2, orderExists = true
+   Given a customer
+     And a book
+    With 3 items on stock
+    When the customer orders the book
+    Then there are 2 items left on stock
+     And a corresponding order exists for the customer
+
+  Case 2: initial = 0, left = 0, orderExists = false
+   Given a customer
+     And a book
+    With 0 items on stock
+    When the customer orders the book
+    Then there are 0 items left on stock
+     And no corresponding order exists for the customer</pre></code>
+</section>
+
+
+<section>
+  <h2>Verschiedene Schritte</h2>
+  <h3>HTML-Bericht</h3>
+<a target="_blank" href="examplereport/index.html#/scenario/com.tngtech.jgiven.example.bookstore.OrderTest/the_stock_is_only_reduced_when_possible"><img height="400px" src="img/differentsteps.png"/></a>
+</section>
+-->
+
+<!--
+        <section>
+          <h2>Plain Text</h2>
+          <pre>
+
+  Scenario: buy a coffee
+
+    Given there are 5 coffees left in the machine
+      and the machine is on
+      and the coffee costs 2 dollar
+
+     When I deposit 1 dollar
+      and I press the coffee button
+
+     Then I should not be served a coffee
+      and an error message should be displayed
+          </pre>
+        </section>
+-->
+
+        <section>
+          <h2>Parameter Formatting</h2>
+          <ul>
+            <li>Default: toString()
+            <li class="nowrap">@Format( MyCustomFormatter.class )</li>
+            <li>@Formatf( " -- %s -- " )
+            <li>@MyCustomFormatAnnotation
+          </ul>
+        </section>
+
+        <section>
+          <h2>Example</h2>
+          <h3>@OnOff</h3>
+          <code><pre>@Format( value = BooleanFormatter.class, args = { "on", "off" } )
+@Retention( RetentionPolicy.RUNTIME )
+@interface OnOff {}</pre></code>
+          <div class="fragment">
+          <h4>Apply to Parameter</h4>
+          <code><pre>public SELF the_machine_is_$( @OnOff boolean onOrOff ) { ... }</pre></code>
+          </div>
+          <div class="fragment">
+          <h4>Use Step</h4>
+<code><pre>given().the_machine_is_$( false );</pre></code>
+          </div>
+          <div class="fragment">
+          <h4>Report</h4>
+<code><pre>Given the machine is off</pre></code>
+          </div>
+        </section>
+
+<!--
+        <section>
+          <h2>Tables als Parameter</h2>
+          <ul>
+            <li><a href="http://jgiven.org/javadoc/com/tngtech/jgiven/annotation/Table.html">@Table</a> um einen Parameter als Tabelle zu markieren</li>
+            <li>Muss der letzte Parameter sein</li>
+            <li>Muss ein Iterable of Iterable, ein Iterable of POJOs, oder ein POJO sein</li>
+          </ul>
+        </section>
+-->
+        <section>
+          <h2>Tables as Parameters</h2>
+<pre><code>SELF the_following_books_are_on_stock( @Table String[][] stockTable ) {
+   ...
+}</code></pre>
+<ul><li class="nowrap">All iterable types are supported
+      </li></ul>
+        </section>
+
+        <section>
+          <h2>Tables as Parameters</h2>
+          <pre><code>@Test
+public void ordering_a_book_reduces_the_stock() {
+
+    given().the_following_books_on_stock(new String[][]{
+        {"id", "name", "author", "stock"},
+        {"1", "The Hitchhiker's Guide to the Galaxy", "Douglas Adams", "5"},
+        {"2", "Lord of the Rings", "John Tolkien", "3"},
+    });
+
+    when().a_customer_orders_book("1");
+
+    then().the_stock_looks_as_follows(new String[][]{
+        {"id", "name", "author", "stock"},
+        {"1", "The Hitchhiker's Guide to the Galaxy", "Douglas Adams", "4"},
+        {"2", "Lord of the Rings", "John Tolkien", "3"},
+    });
+
+}</code></pre>
+        </section>
+
+        <section>
+          <h2>Tables as Parameters</h2>
+          <h3>Console Output</h3>
+<pre><code>Ordering a book reduces the stock
+
+   Given the following books on stock
+
+     | id | name                                 | author        | stock |
+     +----+--------------------------------------+---------------+-------+
+     |  1 | The Hitchhiker's Guide to the Galaxy | Douglas Adams |     5 |
+     |  2 | Lord of the Rings                    | John Tolkien  |     3 |
+
+    When a customer orders book 1
+    Then the stock looks as follows
+
+     | id | name                                 | author        | stock |
+     +----+--------------------------------------+---------------+-------+
+     |  1 | The Hitchhiker's Guide to the Galaxy | Douglas Adams |     4 |
+     |  2 | Lord of the Rings                    | John Tolkien  |     3 |</code></pre>
+
+        </section>
+<section>
+  <h2>Tables as Parameters</h2>
+  <h3>HTML Report</h3>
+<a target="_blank" href="examplereport/index.html#/scenario/com.tngtech.jgiven.example.bookstore.OrderTest/ordering_a_book_reduces_the_stock"><img height="400px" src="img/tablesasparams.png" /></a>
+</section>
+
+
+<!--
+<section>
+  <h2>Tabellen als Parameter</h2>
+  <h3>Liste von POJOs</h3>
+  <ul>
+    <li class="nowrap">Feldnamen: Kopf</li>
+    <li>Feldwerte: Daten</li>
+  </ul>
+  <pre><code>SELF the_following_books_are_on_stock( @Table List&lt;BookOnStock&gt; books) {
+   ...
+}</code></pre>
+</section>
+
+<section>
+  <h2>Tabellen als Parameter</h2>
+  <h3>Einfaches POJO</h3>
+  <pre><code>SELF the_following_book(
+      @Table(includeFields = {"name", "author", "priceInEurCents"},
+             header = VERTICAL) Book book) {
+   ...
+}
+</code></pre>
+<h4>HTML-Bericht</h4>
+
+<a target="_blank" href="examplereport/index.html#/scenario/com.tngtech.jgiven.example.bookstore.OrderTest/single_POJOs_as_Table"><img src="img/pojoastable.png" /></a>
+
+</section>
+-->
+
+	<section>
+		<h2>@BeforeScenario und @AfterScenario</h2>
+          <pre><code data-trim>
+public class GivenSteps extends Stage&lt;GivenSteps&gt; {
+
+    @ProvidedScenarioState
+    File temporaryFolder;
+
+    @BeforeScenario
+    void setupTemporaryFolder() {
+	    temporaryFolder = ...
+    }
+
+    @AfterScenario
+    void deleteTemporaryFolder() {
+        temporaryFolder.delete();
+    }
+}
+          </code></pre>
+	</section>
+        <section>
+		<h2>@ScenarioRule</h2>
+          <pre><code data-trim>
+public class TemporaryFolderRule {
+    File temporaryFolder;
+
+    public void before() {
+        temporaryFolder = ...
+    }
+
+    public void after() {
+        temporaryFolder.delete();
+    }
+}
+
+public class GivenSteps extends Stage&lt;GivenSteps&gt; {
+    @ScenarioRule
+    TemporaryFolderRule rule = new TemporaryFolderRule();
+}
+          </code></pre>
+
+        </section>
+
+         <section>
+            <h2>@AfterStage, @BeforeStage</h2>
+          <pre><code class="stretch" data-trim>
+public class GivenCustomer extends Stage&lt;GivenSteps&gt; {
+    CustomerBuilder builder;
+
+    @ProvidedScenarioState
+    Customer customer;
+
+    public void a_customer() {
+        builder = new CustomerBuilder();
+    }
+
+    public void with_age(int age) {
+        builder.withAge(age);
+    }
+
+    @AfterStage
+    void buildCustomer() {
+        customer = builder.build();
+    }
+}
+          </code></pre>
+          </section>
+
+     <section>
+       <h2>Tags</h2>
+<pre><code>@Test @FeatureEmail
+void the_customer_gets_an_email_when_ordering_a_book() {
+   ...
+}</code></pre>
+<div class="fragment">
+<h3>Mit Werten</h3>
+<pre><code>@Test @Story( "ABC-123" )
+void the_customer_gets_an_email_when_ordering_a_book() { ... }</code></pre>
+</div>
+
+     </section>
+
+     <section>
+     <h2>@Pending</h2>
+     <ul>
+       <li>Marks the whole scenario or single steps as not implemented yet</li>
+       <li>Steps are skipped, but appear in the report</li>
+     </ul>
+     <h3>HTML Report</h3>
+     <a target="_blank" href="examplereport/index.html#/pending"><img src="img/pending.png" /></a>
+     </section>
+
+     <section>
+       <h2>@Hidden</h2>
+       <ul>
+         <li>Marks methods to <b>not</b> appear in the report</li>
+         <li>Useful for technically required methods</li>
+       </ul>
+       <pre><code data-trim>
+@Hidden
+public SELF doSomethingTechnical() { ... }</code></pre>
+     </section>
+
+     <section>
+     <h2>Extended Step Descriptions</h2>
+     <pre><code>@ExtendedDescription("The Hitchhiker's Guide to the Galaxy, "
+                   + "by default the book is not on stock" )
+public SELF a_book() { ... }</code></pre>
+<h3>HTML Report</h3>
+     <div style="text-align:center;">
+     <a target="_blank" href="examplereport/index.html#/scenario/com.tngtech.jgiven.example.bookstore.OrderTest/customers_can_order_books"><img class="plain" src="img/tooltip.png" /></a>
+     </div>
+     </section>
+
+     <section>
+     <h2>Attachments</h2>
+     <pre><code>public class Html5ReportStage {
+    @ExpectedScenarioState
+    protected CurrentStep currentStep; // provided by JGiven
+
+    protected void takeScreenshot() {
+        String base64 = ( (TakesScreenshot) webDriver )
+            .getScreenshotAs( OutputType.BASE64 );
+        currentStep.addAttachment(
+            Attachment.fromBase64( base64, MediaType.PNG )
+                      .withTitle( "Screenshot" ) );
+    }
+}</code></pre>
+<h3>HTML Report</h3>
+     <div style="text-align:center;">
+     <a href="http://jgiven.org/jgiven-report/html5/#/scenario/com.tngtech.jgiven.report.html5.Html5AppTest/attachments_appear_in_the_HTML5_report"><img class="plain" src="img/attachment.png" /></a>
+     </div>
+     </section>
+
+
+   </section>
+
+
+      <section>
+        <section>
+          <h1>Summary</h1>
+        </section>
+
+<!--
+        <section style="text-align:center">
+              <h2>Classical BDD</h2>
+              <h3>Readable Text <i class="fa fa-arrows-h"></i>&nbsp; Code</h3>
+              <p style="margin-top:100px"></p>
+              <h2>JGiven</h2>
+              <h3>Readable Code <i class="fa fa-long-arrow-right"></i>&nbsp; Readable Report</h3>
+        </section>
+        <section>
+-->
+
+        <section>
+          <ul style="margin-top:0px; font-size:80%;" class="narrow fa-ul bad">
+            <li class="fade-on">Automated tests are required for Continuous Delivery</li>
+            <li class="fragment fade-on">Test code is a significant cost factor</li>
+            <li class="fragment fade-on">Typical test code has a lot of issues</li>
+            <li class="fragment fade-on">Existing BDD tools either have an overhead or are not Java</li>
+          </ul>
+        </section>
+        <section>
+
+          <h2>JGiven</h2>
+          <ul style="margin-top:0px; font-size:80%;" class="narrow fa-ul check">
+            <li class="fragment fade-in">Developer friendly</li>
+            <li class="fragment fade-in">Highly modular and reusable test code</li>
+            <li class="nowrap fragment fade-in">Just Java, no further language is needed</li>
+            <li class="fragment fade-in">Easy to integrate into existing test infrastructures</li>
+            <li class="fragment fade-in">Open Source (Apache 2 Licence)</li>
+            <li class="fragment fade-in">Maven and Jenkins plugins</li>
+            <li class="fragment fade-in">Domain experts can <b>read</b> scenario reports</li>
+            <li class="fragment fade-in not">Domain experts can <b>not write</b> scenarios<br />
+	  <span style="font-size: 70%">(But they can write them in any other format and developers can easily translate them to JGiven)</span>
+             </li>
+          </ul>
+          <p>
+          <h3 class="fragment fade-in">Take your tests to the next level!</h3>
+
+        </section>
+
+      </section>
+
+
+   <section style="text-align:center" >
+     <h1>Thank You!</h1>
+     <h3>@JanSchfr</h3>
+     <a href="http://jgiven.org" target="_blank"><h3>jgiven.org</h3></a>
+     <a href="https://github.com/TNG/JGiven"><h3>github.com/TNG/JGiven</h3></a>
+<!--     <a href="https://janschaefer.github.io/jugm16-slides/"><h3>janschaefer.github.io/jugm16-slides</h3></a> -->
+     <p style="margin-top:50px">
+     <a href="http://tngtech.com"><img  style="margin-bottom:20px; margin-top:-10px; height:40px;" src="img/tng.svg" /></a>
+     </p>
+
+   </section>
+
+<!--
+      <section>
+        <section>
+          <h1>Erste Schritte</h1>
+        </section>
+
+        <section>
+          <h2>JGiven-Abhängigkeit</h2>
+          <ul>
+            <li class="nowrap">com.tngtech.jgiven:jgiven-junit:0.11.4</li>
+            <li class="nowrap">oder com.tngtech.jgiven:jgiven-testng:0.11.4</li>
+            <li>Lizenz: Apache License v2.0</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>ScenarioTest* erweitern</h2>
+          <pre><code data-trim>
+import com.tngtech.jgiven.(junit|testng).ScenarioTest;
+
+public class SomeScenarioTest extends ScenarioTest&lt;...&gt; {
+
+}</code></pre>
+*Oder SimpleScenarioTest
+        </section>
+
+        <section>
+          <h2>Stage-Typen hinzufügen</h2>
+          <pre><code data-trim>
+import com.tngtech.jgiven.junit.ScenarioTest;
+
+public class SomeScenarioTest
+    extends ScenarioTest&lt;MyGivenStage, MyWhenStage, MyThenStage&gt; {
+
+}</code></pre>
+        </section>
+
+        <section>
+          <h2>Test-Methoden hinzufügen</h2>
+          <pre><code data-trim>
+import org.junit.Test;
+import com.tngtech.jgiven.junit.ScenarioTest;
+
+public class SomeScenarioTest
+    extends ScenarioTest&lt;MyGivenStage, MyWhenStage, MyThenStage&gt; {
+
+    @Test
+    public void my_first_scenario() { ... }
+
+}</code></pre>
+
+        </section>
+        <section>
+          <h2>Schritt-Methoden schreiben</h2>
+          <pre><code class="stretch" data-trim>
+import org.junit.Test;
+import com.tngtech.jgiven.junit.ScenarioTest;
+
+public class SomeScenarioTest
+    extends ScenarioTest&lt;MyGivenStage, MyWhenStage, MyThenStage&gt; {
+
+    @Test
+    public void my_first_scenario() {
+
+        given().some_initial_state();
+        when().some_action();
+        then().the_result_is_correct();
+
+    }
+}
+          </code></pre>
+        </section>
+        <section>
+          <h2>Stage-Klassen schreiben</h2>
+          <pre><code data-trim>
+import com.tngtech.jgiven.Stage;
+
+public class MyGivenStage extends Stage&lt;MyGivenStage&gt; {
+
+    int state;
+
+    public MyGivenStage some_initial_state() {
+        state = 42;
+        return this;
+    }
+}</code></pre>
+        </section>
+
+      </section>
+
+-->
+<!--
+      <section>
+        <h1>Backup Slides</h1>
+      </section>
+
+      <section>
+        <section>
+          <h1>Stage-Klassen</h1>
+        </section>
+
+        <section>
+          <h2>Allgemein</h2>
+          <ul>
+            <li>JGiven-Szenarien werden aus <b>Stage-Klassen</b> zusammengesetzt</li>
+            <li>Stage-Klassen ermöglichen <b>Modularität</b> und <b>Wiederverwendung</b></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Zustandstransfer</h2>
+          <img width="700" src="img/stages.svg" />
+        </section>
+
+        <section>
+          <h2>Zustandstransfer</h2>
+          <ul>
+          <li>Felder von Stage-Klassen werden mit <b>@ScenarioState</b> annotiert</li>
+          <li>Werte werden zwischen Stages gelesen und geschrieben</li>
+          <li><b>@ProvidedScenarioState</b>, <b>@ExpectedScenarioState</b> als Alternative</li>
+          </ul>
+        </section>
+        <section>
+          <pre><code data-trim  style="min-height:450px">
+public class MyGivenStage extends Stage&lt;MyGivenStage&gt; {
+   @ProvidedScenarioState
+   int state;
+
+   public MyGivenStage some_initial_state() {
+      state = 42;
+      return self();
+   }
+}
+
+public class MyWhenStage extends Stage&lt;MyWhenStage&gt; {
+   @ExpectedScenarioState
+   int state;
+
+   @ProvidedScenarioState
+   int result;
+
+   public MyWhenStage some_action() {
+       result = state * state;
+   }
+}
+          </code></pre>
+        </section>
+
+
+
+        </section>
+-->
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+                showNotes: false,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); },
+                       callback: function() {
+                          hljs.configure({ languages: ['java'] });
+                          hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
