@@ -9,3 +9,7 @@ https://janschaefer.github.io/jgiven-slides/etk2016/
 ### Software Architecture Meetup Munich
 
 https://janschaefer.github.io/jgiven-slides/swamuc2016/
+
+### Devoxx Belgium 2016
+
+https://janschaefer.github.io/jgiven-slides/devoxxbe2016/
