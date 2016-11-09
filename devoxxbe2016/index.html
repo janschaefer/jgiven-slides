@@ -51,7 +51,8 @@
 
                   <section  class="title">
                     <h1>Behavior-Driven Development in Java with JGiven</h1>
-                      <h2 style="margin-top:60px; margin-bottom: 40px; color: #444">Dr. Jan Schäfer</h2>
+                      <h2 style="margin-top:60px;  color: #444">Jan Schäfer</h2>
+<h3 style="margin-bottom: 40px;">@JanSchfr</h3>
                       <a href="http://tngtech.com"><img  style="margin-bottom:20px; margin-top:0px; height:40px;" src="img/tng.svg" /></a>
                       <h3>7th Nov 2016</h3>
                       <h4>Devoxx Belgium 2016</h4>
@@ -66,6 +67,8 @@
                     <a target="_blank" href="http://localhost:9967/petclinic/">
                       <img src="img/petclinic.png" />
                     </a>
+<small><a href="https://github.com/spring-projects/spring-petclinic">github.com/spring-projects/spring-petclinic</a></small>
+
                   </section>
                   <section>
                     <h2>Typical Test</h2>
@@ -97,13 +100,13 @@ public void shouldInsertPetIntoDatabaseAndGenerateId() {
     assertThat(pet.getId()).isNotNull();
 }
   </code></pre>
-<small>Example from <a href="https://github.com/spring-projects/spring-petclinic">github.com/spring-projects/spring-petclinic</a></small>
+<small><a href="https://github.com/spring-projects/spring-petclinic">github.com/spring-projects/spring-petclinic</a></small>
 
 <!--                    <img src="img/tdd.svg"> -->
                   </section>
 
                   <section>
-                    <h2>Issues with typical automated tests</h2>
+                    <h2>Issues with Typical Tests</h2>
           <ul class="fa-ul bad">
            <li class="fragment">Many technical and irrelevant details</li>
            <li class="fragment">Point of the test often hard to grasp</li>
@@ -113,7 +116,6 @@ public void shouldInsertPetIntoDatabaseAndGenerateId() {
           </ul>
 
                   </section>
-
 
 <!--
                  <section>
@@ -380,11 +382,16 @@ Some people, when confronted with a problem, think "I know, I'll use regular exp
           </ul>
         </section>
 
+        <section>
+          <h1>Demo</h1>
+        </section>
+
 <!--
         <section>
           <h1 style="opacity: 0.8; background: none; border:none; box-shadow:none; -webkit-text-stroke: 2px #555; font-size: 200px; color: white; text-shadow: 5px 5px 15px black">Demo</h1>
         </section>
 -->
+<!--
         <section>
           <h2>Scenarios in JGiven</h2>
           <pre><code data-trim>
@@ -425,7 +432,9 @@ public class WhenSearching extends Stage&lt;WhenSearching&gt; {
     }
 }
           </code></pre>
+
         </section>
+-->
 <!--
                   <section>
                     <h2>Two Layers</h2>
@@ -463,6 +472,7 @@ which builds up the objects in the implementation layer, using small <b>“sugar
         </section>
 
 -->
+<!--
         <section>
           <h2>Console Output</h2>
           <pre style="font-size:70%"><code>
@@ -475,8 +485,9 @@ which builds up the objects in the implementation layer, using small <b>“sugar
 </code></pre>
 
         </section>
+-->
         <section>
-          <h2>HTML5-App</h2>
+          <h2>Example Reports</h2>
           <a target="_blank" href="examplereport/index.html"><img height="400px" src="img/jgivenhtml5app2.png"/></a>
             <ul>
               <li><a target="_blank" style="font-size: 30px" href="http://jgiven.org/jgiven-report/html5/">jgiven.org/jgiven-report/html5/</a> <a href="file:///home/jan/git/github/jgiven/jgiven-tests/build/reports/jgiven/html5/index.html" style="font-size:20px">(Local)</a></li>
@@ -509,7 +520,7 @@ which builds up the objects in the implementation layer, using small <b>“sugar
 
       </section>
 
-
+<!--
      <section>
         <section>
           <h1>Additional Features</h1>
@@ -707,7 +718,7 @@ public void the_stock_is_only_reduced_when_possible(
           </pre>
         </section>
 -->
-
+<!--
         <section>
           <h2>Parameter Formatting</h2>
           <ul>
@@ -737,7 +748,7 @@ public void the_stock_is_only_reduced_when_possible(
 <code><pre>Given the machine is off</pre></code>
           </div>
         </section>
-
+-->
 <!--
         <section>
           <h2>Tables als Parameter</h2>
@@ -748,6 +759,7 @@ public void the_stock_is_only_reduced_when_possible(
           </ul>
         </section>
 -->
+<!--
         <section>
           <h2>Tables as Parameters</h2>
 <pre><code>SELF the_following_books_are_on_stock( @Table String[][] stockTable ) {
@@ -805,7 +817,7 @@ public void ordering_a_book_reduces_the_stock() {
   <h3>HTML Report</h3>
 <a target="_blank" href="examplereport/index.html#/scenario/com.tngtech.jgiven.example.bookstore.OrderTest/ordering_a_book_reduces_the_stock"><img height="400px" src="img/tablesasparams.png" /></a>
 </section>
-
+-->
 
 <!--
 <section>
@@ -835,7 +847,7 @@ public void ordering_a_book_reduces_the_stock() {
 
 </section>
 -->
-
+<!--
 	<section>
 		<h2>@BeforeScenario und @AfterScenario</h2>
           <pre><code data-trim>
@@ -972,7 +984,7 @@ public SELF a_book() { ... }</code></pre>
 
 
    </section>
-
+-->
 
       <section>
 <!--
