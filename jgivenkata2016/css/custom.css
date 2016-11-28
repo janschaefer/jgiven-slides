@@ -1,0 +1,160 @@
+
+body, .reveal section {
+  font-family: 'Lato', 'Open Sans', Helvetica, sans-serif;
+}
+
+.reveal h1 {
+  font-family: 'Roboto';
+  font-weight: normal;
+  text-transform: none;
+  font-weight: bold;
+  color: #fff;
+  border: solid 5px #0064a6;
+  border-radius: 4px;
+  background-color: #0064a6;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.306863) 0px 5px 10px 0px, rgba(0, 0, 0, 0.257647) 0px 5px 20px 0px;
+}
+
+.reveal h2 a {
+  color: #0064a6; /* TNG color */
+}
+
+.reveal section.title h1 {
+  font-size: 55px;
+/*  font-weight: bold;
+  border: none;
+  color: #666;
+  background-color: white;*/
+}
+
+.reveal section.title h2 {
+  font-size: 50px;
+}
+
+.reveal section.title h3 {
+  font-size: 40px;
+}
+
+
+
+.reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  color: #0064a6; /* TNG color */
+  font-family: 'Lato', 'Open Sans', Helvetica, sans-serif;
+  font-weight: bold;
+/*  line-height: 1.2; */
+/*  letter-spacing: normal;*/
+  text-transform: none;
+  text-shadow: none;
+  word-wrap: break-word;
+}
+
+.reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+   color: #666;
+   font-weight: bold;
+}
+
+.reveal h3 {
+    font-size: 40px;
+    margin-bottom: 5px;
+    margin-top: 20px;
+}
+
+
+
+.reveal pre code {
+    background: white;
+    border: solid 1px gray;
+    border-radius: 5px;
+    padding: 15px;
+    color: black;
+}
+
+.reveal section img {
+    border: none;
+    box-shadow: none;
+}
+
+.reveal pre {
+    box-shadow: none;
+    font-size: 18px;
+}
+
+html * {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.nowrap {
+    white-space:nowrap;
+}
+
+ul.fa-ul {
+ list-style-type: none;
+}
+
+ul.fa-ul i {
+ color: green;
+
+}
+
+.reveal ul {
+    list-style-type: none;
+}
+
+.reveal ul ul {
+    list-style-type: none;
+}
+
+.reveal ul > li:before {
+    font-family: 'FontAwesome';
+    content: '\f111'; /* fa-circle */
+    margin:0 10px 0 -25px;
+    color: #444;
+    font-size: 50%;
+    vertical-align: middle;
+}
+
+
+ul.fa-ul > li:before {
+    font-family: 'FontAwesome';
+    margin:0 10px 0 -25px;
+}
+
+ul.fa-ul > li.not:before {
+    content: '\f00d' !important; /* fa-times */
+    color: red !important;
+    margin:0 10px 0 -45px !important;
+    font-size: 100%;
+}
+
+ul.fa-ul.hand > li:before {
+    content: '\f0a4'; /* fa-hand */
+    margin:0 10px 0 -50px;
+    font-size: 100%;
+}
+
+ul.fa-ul.bad > li:before {
+/*    content: '\f00d'; /* fa-times */
+    content: '\f06d'; /* fa-fire */
+    color: orange;
+    margin:0 10px 0 -40px;
+    font-size: 100%;
+}
+
+ul.fa-ul.check li:before {
+    content: '\f046';
+    color: green;
+    margin:0 10px 0 -50px;
+    font-size: 100%;
+}
+
+ul.fa-ul.goal li:before {
+    content: '\f192'; /* '\f140';*/
+    color: #0064a6; /* TNG color */
+    margin:0 10px 0 -50px;
+    font-size: 100%;
+}

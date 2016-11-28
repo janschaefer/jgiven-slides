@@ -2,6 +2,10 @@
 
 ## 2016
 
+### JGiven Kata, Softwerkskammer Munich
+
+https://janschaefer.github.io/jgiven-slides/jgivenkata2016/
+
 ### Karlsruher Entwickler Tag
 
 https://janschaefer.github.io/jgiven-slides/etk2016/
