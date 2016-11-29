@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="113.64065mm"
+   height="85.918427mm"
+   viewBox="0 0 402.66371 304.43537"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r"
+   sodipodi:docname="testingpyramid.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="-51.277272"
+     inkscape:cy="55.048005"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     inkscape:window-x="-2"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-190.33628,-236.52478)">
+    <path
+       style="fill:#d4aa00;fill-opacity:1;stroke:#535353;stroke-width:6.32899141;stroke-linecap:butt;stroke-miterlimit:10.19999981;stroke-dasharray:none;stroke-opacity:1"
+       d="m 365.92526,242.87646 -165.1606,294.95009 329.75418,0 z"
+       id="path4164"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#d45500;fill-opacity:1;stroke:#535353;stroke-width:6.41951704;stroke-linecap:butt;stroke-miterlimit:10.19999981;stroke-dasharray:none;stroke-opacity:1"
+       d="m 366.43759,247.07939 -108.1781,189.59819 215.98483,0 z"
+       id="path4164-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#aa0000;fill-opacity:1;stroke:#535353;stroke-width:6.44401932;stroke-linecap:butt;stroke-miterlimit:10.19999981;stroke-dasharray:none;stroke-opacity:1"
+       d="m 366.57932,245.97163 -53.60434,95.32168 107.02466,0 z"
+       id="path4164-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:35.39064789px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="393.94562"
+       y="296.30035"
+       id="text4170"
+       sodipodi:linespacing="125%"
+       transform="scale(0.92896071,1.0764718)"><tspan
+         sodipodi:role="line"
+         id="tspan4172"
+         x="393.94562"
+         y="296.30035">UI</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:33.99661255px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="431.88602"
+       y="344.52359"
+       id="text4243"
+       sodipodi:linespacing="125%"
+       transform="scale(0.84991533,1.1765878)"><tspan
+         sodipodi:role="line"
+         id="tspan4245"
+         x="431.88602"
+         y="344.52359">Service</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:41.25888062px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="350.24716"
+       y="516.14587"
+       id="text4243-9"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0314721,0.96948817)"><tspan
+         sodipodi:role="line"
+         id="tspan4245-9"
+         x="350.24716"
+         y="516.14587">Unit</tspan></text>
+    <path
+       style="fill:#666666;fill-rule:evenodd;stroke:#535353;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:5, 5;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 378,241.3622 215,0"
+       id="path4276"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#666666;fill-rule:evenodd;stroke:#535353;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:5, 5;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 489,436.3622 104,0"
+       id="path4276-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:45.75892639px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#565656;fill-opacity:1;stroke:none"
+       x="464.20416"
+       y="-259.3483"
+       id="text3767"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/jan/git/github/jgiven-pages/img/logo.png"
+       inkscape:export-xdpi="299.31116"
+       inkscape:export-ydpi="299.31116"
+       transform="matrix(0.47988611,0.88423311,-0.85957333,0.49998697,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan3769"
+         x="464.20416"
+         y="-259.3483"
+         style="font-weight:bold;-inkscape-font-specification:'Sans Bold';letter-spacing:-3.74079108px;fill:#565656;fill-opacity:1"
+         dx="0">JGiven</tspan></text>
+    <ellipse
+       cy="-291.17056"
+       cx="619.6864"
+       style="fill:none;stroke:#009000;stroke-width:5.56779242;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path2985"
+       inkscape:transform-center-y="-6.611501"
+       inkscape:export-filename="/home/jan/git/github/jgiven-pages/img/logo.png"
+       inkscape:export-xdpi="299.31116"
+       inkscape:export-ydpi="299.31116"
+       transform="matrix(0.47699501,0.878906,-0.86440447,0.5027971,0,0)"
+       inkscape:transform-center-x="-11.36645"
+       rx="11.078624"
+       ry="10.950336" />
+  </g>
+</svg>
